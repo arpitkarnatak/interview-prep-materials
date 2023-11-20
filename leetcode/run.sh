@@ -1,0 +1,1 @@
+python3 leetcode_$1/index.py

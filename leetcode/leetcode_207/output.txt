@@ -1,0 +1,9 @@
+{0: [1], 1: [], 2: []}
+Currently on Node 0
+Stack => [0, 1]
+Visited => {0}
+Currently on Node 1
+No new node added for Node 1
+Stack => [0]
+Visited => {0, 1}
+False
