@@ -76,6 +76,23 @@ class Solution:
             queue = queue[1:]
         return ans
 
+    def zigZagTraversal(self, root):
+        array = self.levelOrder(root)
+        return [array[i] if i%2 == 0 else array[i][::-1] for i in range(len(array))]
+
+
+    def heightOfTree(self, root):
+        if root is None:
+            return 0
+
+        return 1 + max(self.heightOfTree(root.left), self.heightOfTree(root.right))
+
+    def diameterOfTree(self, root):
+        if root is None:
+            return 0
+        return max(1 + self.heightOfTree(root.left) + self.heightOfTree(root.right), self.diameterOfTree(root.left), self.diameterOfTree(root.right))
+
+
 
 ans = Solution()
 
@@ -92,4 +109,12 @@ preOrderTraversal = ans.preOrder(root)
 inOrderTraversal = ans.inOrder(root)
 postOrderTraversal = ans.postOrder(root)
 levelOrderTraversal = ans.levelOrder(root)
-print(f"Pre => {preOrderTraversal}\nIn => {inOrderTraversal}\nPost => {postOrderTraversal}\nLevel => {levelOrderTraversal}")
+zigZagTraversal = ans.zigZagTraversal(root)
+heightOfTree = ans.heightOfTree(root)
+
+
+print(f"Pre => {preOrderTraversal}\nIn => {inOrderTraversal}\nPost => {postOrderTraversal}\nLevel => {levelOrderTraversal}\nZigZag => {zigZagTraversal}")
+print(f"Height Of Tree => {heightOfTree}")
+
+diameterOfTree = ans.diameterOfTree(root)
+print(f"Diameter => {diameterOfTree}")
