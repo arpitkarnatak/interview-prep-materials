@@ -2,47 +2,78 @@ import sys
 sys.stdin = open('./Graphs/input.txt', 'r')
 sys.stdout = open('./Graphs/output.txt', 'w')
 
-
 class Solution:
-    def arrToMatrix(self, matrix):
-        graph = {index: [] for index in range(len(matrix))}
-        for rowIndex in range(len(matrix)):
-            for colIndex in range(len(matrix)):
-                if matrix[rowIndex][colIndex] == 1 and rowIndex != colIndex:
-                    graph[rowIndex].append(colIndex)
-        return graph
+    def hasCycleUndirectedGraph(self, graph):
+        visited = set()
 
-    def performDfs(self, graph):
-        provinces, stack, visited = 0, [], set()
 
-        for node in graph.keys():
+        # Perform recursive DFS to detect Cycles
+        def dfs(node, parent):
+            visited.add(node)
+            for neighbor in graph[node]:
+                if neighbor in visited:
+                    if neighbor != parent:
+                        return True
+                else:
+                    return dfs(neighbor, node)
+            return False
+
+        for node in graph:
+            if node not in visited:
+                if dfs(node, -1):
+                    return True
+        return False
+
+    def hasCycleDirectedGraph(self, graph):
+        visited, path = set(), set()
+        def dfs(node):
+            if node in path:
+                return True
             if node in visited:
-                pass
-            else:
-                stack.append(node)
-                visited.add(node)
-                while stack != []:
-                    somethingAdded = False
-                    for neighbor in graph[stack[-1]]:
-                        if neighbor not in visited:
-                            stack.append(neighbor)
-                            visited.add(neighbor)
-                            somethingAdded = True
+                return False
 
-                    if not somethingAdded:
-                        stack.pop()
-                provinces += 1
-        return provinces
+            path.add(node)
+            visited.add(node)
 
-    def findCircleNums(self, isConnected):
-        graph = self.arrToMatrix(isConnected)
-        ans = self.performDfs(graph)
-        return ans
+            for neighbor in graph[node]:
+                if dfs(neighbor):
+                    return True
 
+            path.remove(node)
+            return False
+
+        for node in graph:
+            if node not in visited:
+                if dfs(node):
+                    return True
+        return False
 ans = Solution()
 
-ans1 = ans.findCircleNums([[1,1,0],[1,1,0],[0,0,1]])
-ans2 = ans.findCircleNums([[1,0,0],[0,1,0],[0,0,1]])
+testcases = [
+    {
+    0: [1, 2],
+    1: [],
+    2: [],
+    3: [2]
+},{
+    0: [1, 2],
+    1: [0, 2],
+    2: [0, 1, 3],
+    3: [2]
+},
+{
+    0: [1],
+    1: [0]
+},
+{
+    0: [],
+    1: [4],
+    2: [4],
+    3: [1,2],
+    4: []
+}
+]
+res = []
 
-print(f"Ans 1 => {ans1}\nAns 2 => {ans2}")
-
+for test in testcases:
+    print(ans.hasCycleUndirectedGraph(test), ans.hasCycleDirectedGraph(test))
