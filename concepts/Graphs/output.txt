@@ -1,4 +1,15 @@
-True False
-True True
-False True
-True False
+On node G Path so far set()
+Node G not in path
+On node F Path so far set()
+On node D Path so far {'F'}
+On node B Path so far {'F', 'D'}
+On node A Path so far {'F', 'D', 'B'}
+On node B Path so far {'F', 'D', 'B', 'A'}
+B found in path so far {'F', 'D', 'B', 'A'}
+True
+On node 0 Path so far set()
+On node 1 Path so far {0}
+Node 1 not in path
+Node 0 not in path
+{0, 1} set()
+False

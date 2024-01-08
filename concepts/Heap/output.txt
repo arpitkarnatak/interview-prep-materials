@@ -1,0 +1,3 @@
+<queue.PriorityQueue object at 0x104e29050>
+200
+[100, 150, 50]
