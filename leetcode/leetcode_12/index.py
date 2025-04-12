@@ -37,7 +37,4 @@ def integerToRoman(nums):
     return stringBuilder("", nums)
 
 num = int(input())
-print(integerToRoman(num))import sys
-sys.stdin = open('./leetcode_12/input.txt', 'r')
-sys.stdout = open('./leetcode_12/output.txt', 'w')
-
+print(integerToRoman(num))
